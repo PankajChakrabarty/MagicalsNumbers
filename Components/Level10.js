@@ -33,21 +33,21 @@ const handleCalculateTotal = () => {
 
   const handleCalculateDivider = () => {
     // Calculate the division based on the specified formula
-    const CalculatedDivider = (number1 + number2 + randomNumber)/10;
+    const CalculatedDivider = (number1 + number2 + randomNumber)/11;
     // Update the divider state
     setDivider(CalculatedDivider);
   };
 
     const handleCalculateFinalResult = () => {
     // Calculate the Final result based on the specified formula
-    const calculatedFinalResult = (number1+number2+randomNumber) / 10-sNumber1;
+    const calculatedFinalResult = (number1+number2+randomNumber) / 11-sNumber1;
     // Update the Final result state
     setFinalResult(calculatedFinalResult);
   };
 
   const handleCalculateResult = () => {
     // Calculate the result based on the specified formula
-    const calculatedResult = randomNumber / 10;
+    const calculatedResult = randomNumber / 11;
     // Update the result state
     setResult(calculatedResult);
   };

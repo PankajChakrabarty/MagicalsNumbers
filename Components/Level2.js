@@ -179,7 +179,7 @@ const handleNumber1Change = (text) => {
       
     </View>
 
-      <Text style={{ fontSize: 20, marginTop: 10 }}>The Final Result: {finalResult}</Text>
+    
     <Button
          title="Go To Level 3"
       onPress={navigateToLevel3}
