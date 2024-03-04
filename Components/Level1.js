@@ -37,7 +37,7 @@ const Level1 = ({ navigation }) => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
       setUserAnswer('');
       setIsLevel2Active(false);
-    }, 40000);
+    }, 250000);
 
     return () => clearInterval(intervalId);
   }, [images]);
