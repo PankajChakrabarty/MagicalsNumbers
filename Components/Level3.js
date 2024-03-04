@@ -10,6 +10,7 @@ const navigateToLevel4 = () => {
     navigation.navigate('Level 4');
   };
 
+
   const [number1, setNumber1] = useState(0);
   const [number2, setNumber2] = useState(0);
   const [randomNumber, setRandomNumber] = useState(generateRandomNumber());

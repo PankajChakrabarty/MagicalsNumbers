@@ -1,183 +1,148 @@
-import React, { useState } from 'react';
-import { View, ScrollView, TextInput, Button, Text } from 'react-native';
+// Level1.js
+import { Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Image, TextInput, Text, Button, StyleSheet,TouchableOpacity,Dimensions} from 'react-native';
+
+
+
+const win = Dimensions.get('window');
+
 
 const Level1 = ({ navigation }) => {
-  const navigateToLevel2 = () => {
-    navigation.navigate('Level 2');
-  };
+  const images = [
+    require('./Assets/1.jpg'),
+    require('./Assets/2.jpg'),
+    require('./Assets/3.jpg'),
+    require('./Assets/4.jpg'),
+    require('./Assets/5.jpg'),
+    require('./Assets/6.jpg'),
+    require('./Assets/7.jpg'),
+    require('./Assets/8.jpg'),
+    require('./Assets/9.jpg'),
+    require('./Assets/10.jpg'),
+    
+    // Add more images as needed
+  ];
 
+ 
 
+  const answers = [27, 4, 20, 9, 12, 3, 108, [5, 40, 7], 98,32 ]; // Corresponding answers for the images
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [userAnswer, setUserAnswer] = useState('');
+  const [isLevel2Active, setIsLevel2Active] = useState(false);
 
-  const [number1, setNumber1] = useState(0);
-  const [number2, setNumber2] = useState(0);
-  const [randomNumber, setRandomNumber] = useState(generateRandomNumber());
-  const[total, setTotal] = useState(0);
-  const[divider, setDivider] =useState(0);
-  const[sNumber1, setSNumber1] = useState(0);
-  const[gRandom,setGRandom] = useState(0);
-  const[finalResult,setFinalResult] = useState(0);
-  const [result, setResult] = useState(0);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+      setUserAnswer('');
+      setIsLevel2Active(false);
+    }, 40000);
 
-  function generateRandomNumber() {
-    return Math.floor(Math.random() * 100000); // Adjust the range of random numbers as needed
+    return () => clearInterval(intervalId);
+  }, [images]);
+
+const checkAnswer = () => {
+  const correctAnswer = answers[currentIndex];
+  const userEnteredAnswer = userAnswer.trim().split(',').map(Number);
+
+  if (Array.isArray(correctAnswer)) {
+    // Check if arrays are equal
+    const arraysEqual = correctAnswer.length === userEnteredAnswer.length &&
+      correctAnswer.every((value, index) => value === userEnteredAnswer[index]);
+
+    if (arraysEqual) {
+      setIsLevel2Active(true);
+    } else {
+      handleIncorrectAnswer();
+    }
+  } else {
+    const numericCorrectAnswer = parseInt(correctAnswer, 10);
+
+    if (userEnteredAnswer.length === 1 && userEnteredAnswer[0] === numericCorrectAnswer) {
+      setIsLevel2Active(true);
+    } else {
+      handleIncorrectAnswer();
+    }
   }
+};
 
-const handleCalculateTotal = () => {
-    // Calculate the total based on the specified formula
-    const calculatedTotal = number1 + number2 + randomNumber;
-    // Update the total state
-    setTotal(calculatedTotal);
+const handleIncorrectAnswer = () => {
+  Alert.alert('Incorrect Answer', 'Try again!', [
+    { text: 'OK', onPress: () => console.log('OK Pressed') },
+  ]);
+  setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+  setUserAnswer('');
+};
+
+ const navigateToLevel2 = () => {
+    if (isLevel2Active) {
+      navigation.navigate('Level 2');
+    }
   };
-
-  const handleCalculateDivider = () => {
-    // Calculate the division based on the specified formula
-    const CalculatedDivider = (number1 + number2 + randomNumber)/2;
-    // Update the divider state
-    setDivider(CalculatedDivider);
-  };
-
-    const handleCalculateFinalResult = () => {
-    // Calculate the Final result based on the specified formula
-    const calculatedFinalResult = (number1+number2+randomNumber) / 2-sNumber1;
-    // Update the Final result state
-    setFinalResult(calculatedFinalResult);
-  };
-
-  const handleCalculateResult = () => {
-    // Calculate the result based on the specified formula
-    const calculatedResult = randomNumber / 2;
-    // Update the result state
-    setResult(calculatedResult);
-  };
-
-
-  const handleGenerateRandomNumber = () => {
-    // Update the random number
-    const newRandomNumber =generateRandomNumber();
-    setRandomNumber(newRandomNumber);
-    //Automatically set given random number
-    setGRandom(newRandomNumber.toString());
-   
-  };
-
-   const handleNumber1Change = (text) => {
-    // Update number1 state
-    setNumber1(parseInt(text, 10));
-    // Automatically set sNumber1 to be the same as number1
-    setSNumber1(parseInt(text, 10));
-    setNumber2(parseInt(text, 10));
-  };
-
-
-
 
   return (
-    < ScrollView>
-    <View>
-    
-<Text style={{ fontSize: 20, marginTop: 20, paddingLeft:100 }}></Text>
-
-     <Button
-        title="Math Master Provide You The"
-        onPress={handleGenerateRandomNumber}
-      /> 
-<Text style={{ fontSize: 20, marginTop: 10 }}>Bonus Number: {randomNumber}</Text> 
-
-      <Button
-        title="Predicted Result"
-        onPress={handleCalculateResult}
-      />
-      <Text style={{ fontSize: 20, marginTop: 10 }}>Your Remaining Will Be: {result}</Text>
-
-
-  <Text style={{ paddingTop:10}}>Enter Any Number</Text>
-
+    <View style={styles.container}>
+      <Image style={styles.image} resizeMode={'contain'} source={images[currentIndex]} />
       <TextInput
-  style={{
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingLeft: 10,
-  }}
-  keyboardType="numeric"
-  onChangeText={handleNumber1Change}
-  value={number1.toString()}
-/>
-<Text>Automatically Taken The same  Number</Text>
-      <TextInput
-  style={{
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingLeft: 10,
-  }}
-  keyboardType="numeric"
-  onChangeText={(text) => setNumber2(parseInt(text, 10))}
-  value={number2.toString()}
-
-/>
-
- <Text>The Given Bonus Number</Text>
-      <TextInput
-  style={{
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingLeft: 10,
-  }}
-  keyboardType="numeric"
-  onChangeText={(text) => setGRandom(parseInt(text, 10))}
-  value={gRandom}
-
-/>
-
- <Button
-        title="Your Present Total Number"
-        onPress={handleCalculateTotal}
+        style={styles.input}
+        placeholder="Enter your answer"
+        keyboardType="numeric"
+        value={userAnswer}
+        onChangeText={(text) => setUserAnswer(text)}
       />
-   
-     
-      <Text style={{ fontSize: 20, marginTop: 10 }}>The Total is: {total}</Text>
-
-      
- <Button
-        title="Your Total Number Divided By Two"
-        onPress={handleCalculateDivider}
-      />
-      <Text style={{ fontSize: 20, marginTop: 10 }}>The remaining is: {divider}</Text>
-
-      <Text style={{ fontSize: 20, marginTop: 10 }}> Automatically Taken Number "Subtracted"</Text>
-      <TextInput
-  style={{
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingLeft: 10,
-  }}
-  keyboardType="numeric"
-  onChangeText={(text) => setSNumber1(parseInt(text, 10))}
-  value={sNumber1.toString()}
-
-/>
-      <Button
-        title="Your Remaining Number Is Same To The Predicted Result"
-        onPress={handleCalculateFinalResult}
-      />
-      <Text style={{ fontSize: 20, marginTop: 10 }}>The Final Result: {finalResult}</Text>
-    <Button
-         title="Go To Level 2"
-      onPress={navigateToLevel2}
-      
-      />
-      
+      <TouchableOpacity onPress={checkAnswer} style={styles.button}>
+        <Text style={styles.buttonText}>Enter</Text>
+        </TouchableOpacity>
+          <View style = {styles.space} />
+          {isLevel2Active && (
+        <TouchableOpacity onPress={navigateToLevel2} style={styles.button}>
+        <Text style={styles.buttonText}>Level 2</Text>
+        </TouchableOpacity>
+          )}
     </View>
-    </ScrollView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+   text: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  image: {
+    flex: 1,
+    alignSelf: "stretch",
+    width: win.width,
+    height: win.height,
+  },
+  input: {
+    marginTop: 10,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    width: 200,
+  },
+   button: {
+    paddingTop:5,
+    flexDirection:'column',
+    height:30,
+    width:100,
+    backgroundColor: 'blue',
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: 'white',
+    textAlign: 'center', 
+  },
+  space: {
+    width: 50,
+    height: 50,
+  }
+});
 
 export default Level1;

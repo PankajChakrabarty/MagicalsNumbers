@@ -1,7 +1,10 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Button } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Button,Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Row } from 'native-base';
+import { Dimensions } from 'react-native';
+
+const win = Dimensions.get('window');
+
 
 
 const Home = () => {
@@ -45,8 +48,10 @@ const Pro = () => {
 
   return (
     <>
+    <View style= {styles.containerFluid}>
+        <Image style={styles.image} resizeMode={'contain'} source={require("./Assets/unnamed.png")}/>
+    </View>
     <View style={styles.container}>
-    <Text style={styles.text}> Welcome to Math Master</Text>
     <Text style= {styles.normalText}> Press the Button Below to Start Play</Text>
 
       <TouchableOpacity onPress={handleButtonPress} style={styles.button}>
@@ -107,8 +112,7 @@ const styles = StyleSheet.create({
   },
   containerFluid: {
     flex: 1,
-    flexDirection:'row',
-    justifyContent: 'space-evenly',
+  
     alignItems: 'center',
   },
   text: {
@@ -119,8 +123,13 @@ const styles = StyleSheet.create({
    normalText: {
     fontSize:15,
     color: 'white',
-    fontWeight:'500',
+    fontWeight:'700',
     backgroundColor:'purple',
+  },
+    image: {
+   flex: 1,
+   alignSelf: "center",
+   aspectRatio:.5,
   },
   button: {
     flexDirection:'row',
