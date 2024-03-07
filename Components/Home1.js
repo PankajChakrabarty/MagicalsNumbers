@@ -4,7 +4,7 @@ import { View, TouchableOpacity, Text, StyleSheet, Button,Image } from 'react-na
 import { useNavigation } from '@react-navigation/native';
 
 
-const Start = () => {
+const Home1 = () => {
 
       const navigation = useNavigation();
 
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Start;
+export default Home1;
