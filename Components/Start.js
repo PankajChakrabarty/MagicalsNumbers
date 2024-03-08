@@ -4,12 +4,15 @@ import { View, TouchableOpacity, Text, StyleSheet, Button,Image } from 'react-na
 import { useNavigation } from '@react-navigation/native';
 
 
-const Home1 = () => {
+const Start = () => {
 
       const navigation = useNavigation();
 
   const handleButtonPress = () => {
     navigation.navigate('Level 1');
+  };
+  const navigateToLogin = () => {
+    navigation.navigate('Register');
   };
 
   return (
@@ -20,6 +23,9 @@ const Home1 = () => {
         <Text style={styles.buttonText}>PLAY</Text>
       </TouchableOpacity>
       {/* Add any additional content for your Level2 page */}
+      <TouchableOpacity onPress={navigateToLogin} style={styles.button}>
+        <Text style={styles.buttonText}>Logout</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -27,7 +33,7 @@ const Home1 = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
   },
   text: {
@@ -45,4 +51,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home1;
+export default Start;

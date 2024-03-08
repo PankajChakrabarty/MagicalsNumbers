@@ -14,6 +14,7 @@ import {
 
 const win = Dimensions.get('window');
 
+
 const Level1 = ({ navigation }) => {
   const images = [
     require('./Assets/1.jpg'),
@@ -41,7 +42,7 @@ const Level1 = ({ navigation }) => {
       setCurrentIndex(prevIndex => (prevIndex + 1) % images.length);
       setUserAnswer('');
       setIsLevel2Active(false);
-    }, 250000);
+    }, 25000);
 
     return () => clearInterval(intervalId);
   }, [images]);
@@ -117,6 +118,8 @@ const Level1 = ({ navigation }) => {
     </View>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   container: {
