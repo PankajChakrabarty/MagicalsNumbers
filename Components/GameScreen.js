@@ -104,7 +104,7 @@ const GameScreen = () => {
                 ))}
             </View>
 
-            <Text style={styles.equationText}>{`Equation: `}</Text>
+            <Text style={styles.equationText}>{`Find The Value For: `}</Text>
             <View style={styles.equationContainer}>
                 {equation.split(' ').map((part, index) => (
                     <View key={index} style={styles.equationItem}>
