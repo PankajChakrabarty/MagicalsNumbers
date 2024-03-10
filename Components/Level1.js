@@ -17,11 +17,11 @@ const win = Dimensions.get('window');
 
 const Level1 = ({ navigation }) => {
   const images = [
-    require('./Assets/1.jpg'),
-    require('./Assets/2.jpg'),
-    require('./Assets/3.jpg'),
-    require('./Assets/4.jpg'),
-    require('./Assets/5.jpg'),
+    require('./Assets/A.jpg'),
+    require('./Assets/B.jpg'),
+    require('./Assets/C.jpg'),
+    require('./Assets/D.jpg'),
+    require('./Assets/E.jpg'),
     require('./Assets/6.jpg'),
     require('./Assets/7.jpg'),
     require('./Assets/8.jpg'),
@@ -88,7 +88,7 @@ const Level1 = ({ navigation }) => {
 
   const navigateToLevel2 = () => {
     if (isLevel2Active) {
-      navigation.navigate('Level 2');
+      navigation.navigate('Game');
     }
   };
 

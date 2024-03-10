@@ -7,6 +7,8 @@ import RegisterScreen from '../screens/RegisterScreen';
 import Start from '../Start';
 import Level1 from '../Level1';
 import Level2 from '../Level2';
+import GameScreen from '../GameScreen';
+
 
 const StackNavigator = () => {
   const Stack = createStackNavigator();
@@ -27,6 +29,7 @@ const StackNavigator = () => {
         <Stack.Screen name="Home" component={Start} />
         <Stack.Screen name="Level 1" component={Level1} />
         <Stack.Screen name="Level 2" component={Level2} />
+        <Stack.Screen name="Game" component={GameScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

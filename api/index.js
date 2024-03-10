@@ -34,7 +34,7 @@ mongoose
   });
 
 const User = require('./models/user');
-const Order = require('./models/order');
+
 
 const sendVerificationEmail = async (email, verificationToken) => {
     // Create a Nodemailer transporter
