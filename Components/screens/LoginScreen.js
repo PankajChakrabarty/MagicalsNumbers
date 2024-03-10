@@ -7,6 +7,7 @@ import {
     KeyboardAvoidingView,
     TextInput,
     Pressable,
+    Alert,
     Dimensions
 } from "react-native";
 import React, { useState, useEffect } from "react";
@@ -49,10 +50,10 @@ const LoginScreen = () => {
                 console.log(response);
                 const token = response.data.token;
                 AsyncStorage.setItem("authToken", token);
-                navigation.replace("Start");
+                navigation.replace("Home");
             })
             .catch((error) => {
-                Alert.alert("Login Error", "Invalid Email");
+                Alert.alert("Login Error", "Invalid Email or Password");
                 console.log(error);
             });
     };
@@ -60,11 +61,11 @@ const LoginScreen = () => {
         <SafeAreaView
             style={{ flex: 1, backgroundColor: "white", alignItems: "center" }}
         >
-            <View style={{ flex: 1, backgroundColor: "white", alignItems: "center",marginTop:100 }}>
+            <View style={{ flex: 1, backgroundColor: "white", alignItems: "center", marginTop: 100 }}>
                 <Image
                     style={{ width: 200, height: 60 }}
                     source={require
-                       ( '../Assets/unnamed.png')
+                        ('../Assets/unnamed.png')
                     }
                 />
             </View>

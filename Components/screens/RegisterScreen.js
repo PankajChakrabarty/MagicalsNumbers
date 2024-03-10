@@ -56,7 +56,7 @@ const RegisterScreen = () => {
         <SafeAreaView
             style={{ flex: 1, backgroundColor: "white", alignItems: "center" }}
         >
-                <View style={{ flex: 1, backgroundColor: "white", alignItems: "center", marginTop: 100 }}>
+                <View style={{ flex: 1, backgroundColor: "white", alignItems: "center", marginTop: 80 }}>
                     <Image
                         style={{ width: 200, height: 60 }}
                         source={require

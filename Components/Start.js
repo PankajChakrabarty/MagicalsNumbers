@@ -1,7 +1,8 @@
 // Start.js
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Button,Image } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Button, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const Start = () => {
@@ -14,6 +15,16 @@ const Start = () => {
   const navigateToLogin = () => {
     navigation.navigate('Register');
   };
+  const handleLogout = async () => {
+    try {
+      // Remove the authentication token from AsyncStorage
+      await AsyncStorage.removeItem("authToken");
+      // Navigate to the login screen
+      navigation.replace("Login");
+    } catch (err) {
+      console.log("Error logging out:", err);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -23,7 +34,7 @@ const Start = () => {
         <Text style={styles.buttonText}>PLAY</Text>
       </TouchableOpacity>
       {/* Add any additional content for your Level2 page */}
-      <TouchableOpacity onPress={navigateToLogin} style={styles.button}>
+      <TouchableOpacity onPress={handleLogout} style={styles.button}>
         <Text style={styles.buttonText}>Logout</Text>
       </TouchableOpacity>
     </View>

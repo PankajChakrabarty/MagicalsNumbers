@@ -42,8 +42,8 @@ const sendVerificationEmail = async (email, verificationToken) => {
         // Configure the email service or SMTP details here
         service: "gmail",
         auth: {
-            user: "pankajchakrabarty22@gmail.com",
-            pass: "ooezbbfujguidjpf",
+          user: "softtodate@gmail.com",
+          pass: "nkuxixrxfmcnbujo",
         },
     });
 
