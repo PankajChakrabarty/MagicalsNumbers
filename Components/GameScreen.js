@@ -1,7 +1,7 @@
 // GameScreen.js
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TextInput, Button, Alert, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, Image, TextInput, Button, Dimensions, StyleSheet, Alert } from 'react-native';
 import { generateRandomValues } from './utils';
 
 const GameScreen = () => {
@@ -12,6 +12,7 @@ const GameScreen = () => {
     const [showNextLevelButton, setShowNextLevelButton] = useState(false);
     const [currentAnswer, setCurrentAnswer] = useState(null);
     const [remainingTime, setRemainingTime] = useState(10); // Initial time in seconds
+    const [message, setMessage] = useState('');
 
     useEffect(() => {
         initializeApp();
@@ -19,6 +20,7 @@ const GameScreen = () => {
 
     useEffect(() => {
         if (remainingTime === 0) {
+            setMessage('Out of time! Try again.');
             initializeApp();
         } else {
             const timer = setTimeout(() => {
@@ -30,12 +32,19 @@ const GameScreen = () => {
     }, [remainingTime]);
 
     const initializeApp = () => {
+        setMessage('');
         const { values, equation, answer } = generateRandomValues();
         setCurrentValues(values);
         setEquation(equation);
         setCurrentAnswer(answer);
         setRemainingTime(10);
     };
+
+    useEffect(() => {
+        if (message) {
+            setTimeout(() => setMessage(''), 3000); // Change the timeout as needed
+        }
+    }, [message]);
 
     const handleUserInput = () => {
         const userNumericAnswer = parseFloat(userAnswer);
@@ -46,20 +55,26 @@ const GameScreen = () => {
 
                 if (updatedCorrectAnswers === 5) {
                     setShowNextLevelButton(true);
-                    Alert.alert("Congratulations! You've completed 5 levels. Enable the next level button.");
+                    setMessage("Congratulations! You've completed 5 levels. Enable the next level button.");
+                } else {
+                    setMessage('Correct answer! Go for next.');
+                    setTimeout(() => {
+                        setMessage('');
+                        initializeApp();
+                    }, 3000); // Change the timeout as needed
                 }
 
                 setCorrectAnswers(updatedCorrectAnswers);
-
-                Alert.alert('Correct answer! Go for next');
-                initializeApp();
             } else {
-                Alert.alert('Incorrect answer. Try again!');
+                setMessage('Incorrect answer. Try again!');
             }
         } else {
-            Alert.alert('Please enter a valid numeric answer.');
+            setMessage('Please enter a valid numeric answer.');
         }
     };
+
+
+
 
     const getImageSource = char => {
         const imagePaths = {
@@ -110,6 +125,8 @@ const GameScreen = () => {
                 value={userAnswer}
             />
 
+            <Text style={styles.messageText}>{message}</Text>
+
             {showNextLevelButton && (
                 <Button title="Next Level" onPress={() => setShowNextLevelButton(false)} />
             )}
@@ -117,7 +134,6 @@ const GameScreen = () => {
         </View>
     );
 };
-
 
 const { width, height } = Dimensions.get('window');
 
