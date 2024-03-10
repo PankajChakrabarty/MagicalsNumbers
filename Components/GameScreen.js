@@ -1,7 +1,7 @@
 // GameScreen.js
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TextInput, Button, Dimensions, StyleSheet, Alert } from 'react-native';
+import { View, Text, Image, TextInput, Button, Dimensions, StyleSheet, Alert, TouchableOpacity } from 'react-native';
 import { generateRandomValues } from './utils';
 
 const GameScreen = () => {
@@ -44,7 +44,7 @@ const GameScreen = () => {
 
     useEffect(() => {
         if (message) {
-            setTimeout(() => setMessage(''), 3000); // Change the timeout as needed
+            setTimeout(() => setMessage(''), 1000); // Change the timeout as needed
         }
     }, [message]);
 
@@ -63,7 +63,7 @@ const GameScreen = () => {
                     setTimeout(() => {
                         setMessage('');
                         initializeApp();
-                    }, 3000); // Change the timeout as needed
+                    }, 1000); // Change the timeout as needed
                 }
 
                 setCorrectAnswers(updatedCorrectAnswers);
@@ -130,10 +130,17 @@ const GameScreen = () => {
 
             <Text style={styles.messageText}>{message}</Text>
 
+
+            <TouchableOpacity onPress={handleUserInput} style={styles.button}>
+                <Text style={styles.buttonText}>Enter</Text>
+            </TouchableOpacity>
+            <View style={styles.space} />
+
             {showNextLevelButton && (
-                <Button title="Next Level" onPress={() => setShowNextLevelButton(false)} />
+                <TouchableOpacity onPress={() => setShowNextLevelButton(false)} style={styles.button}>
+                    <Text style={styles.buttonText}>Level 3</Text>
+                </TouchableOpacity>
             )}
-            <Button title="Check Answer" onPress={handleUserInput} />
         </View>
     );
 };
@@ -198,6 +205,22 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginBottom: 20,
         textAlign: 'center',
+    },
+    button: {
+        paddingTop: 5,
+        flexDirection: 'column',
+        height: 30,
+        width: 100,
+        backgroundColor: 'blue',
+        borderRadius: 5,
+    },
+    buttonText: {
+        color: 'white',
+        textAlign: 'center',
+    },
+    space: {
+        width: 50,
+        height: 50,
     },
 });
 
