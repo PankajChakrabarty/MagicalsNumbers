@@ -1,15 +1,13 @@
 // utils.js
+
 export const generateRandomValues = () => {
-    let charSet = ['A', 'B', 'C', 'D', 'E'];
-    const operators = ['+', '-', '*', '/'];
-
-    // Shuffle characters and operators individually
-    charSet = shuffleArray(charSet);
-    const shuffledOperators = shuffleArray(operators);
-
+    const charSet = ['Anna', 'Elsa', 'Kristoff', 'Olaf', 'Sven'];
     const values = {};
 
-    charSet.forEach(char => {
+    // Shuffle the charSet array
+    const shuffledCharSet = shuffleArray(charSet);
+
+    shuffledCharSet.forEach(char => {
         const imagePath = char;
         values[char] = {
             value: Math.floor(Math.random() * 10) + 1,
@@ -17,24 +15,19 @@ export const generateRandomValues = () => {
         };
     });
 
-    const equation = `${charSet[0]} ${shuffledOperators[0]} ${charSet[1]} ${shuffledOperators[1]} ${charSet[2]} ${shuffledOperators[2]} ${charSet[3]} ${shuffledOperators[3]} ${charSet[4]}`;
+    // Shuffle the operators array
+    const shuffledOperators = shuffleArray(['+', '-', '*', '/']);
+
+    const equation = `${shuffledCharSet[0]} ${shuffledOperators[0]} ${shuffledCharSet[1]} ${shuffledOperators[1]} ${shuffledCharSet[2]} ${shuffledOperators[2]} ${shuffledCharSet[3]} ${shuffledOperators[3]} ${shuffledCharSet[4]}`;
     const answer = calculateAnswer(values, equation);
 
     return { values, equation, answer };
 };
 
-const shuffleArray = array => {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-};
-
 const calculateAnswer = (values, equation) => {
     try {
         const evaluatedResult = eval(
-            equation.replace(/[A-E]/g, char => values[char]?.value || char)
+            equation.replace(/[A-Za-z]+/g, char => values[char]?.value || char)
         );
 
         if (isNaN(evaluatedResult)) {
@@ -50,4 +43,18 @@ const calculateAnswer = (values, equation) => {
         console.error('Error during evaluation:', error);
         return NaN;
     }
+};
+
+// Function to shuffle an array using Fisher-Yates algorithm
+const shuffleArray = array => {
+    let currentIndex = array.length, randomIndex;
+
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+
+        [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
 };

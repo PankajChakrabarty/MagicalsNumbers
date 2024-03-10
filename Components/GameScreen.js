@@ -1,3 +1,5 @@
+// GameScreen.js
+
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TextInput, Button, Alert, Dimensions, StyleSheet } from 'react-native';
 import { generateRandomValues } from './utils';
@@ -33,7 +35,6 @@ const GameScreen = () => {
         setEquation(equation);
         setCurrentAnswer(answer);
         setRemainingTime(10);
-        setUserAnswer(''); // Reset user input box
     };
 
     const handleUserInput = () => {
@@ -62,11 +63,11 @@ const GameScreen = () => {
 
     const getImageSource = char => {
         const imagePaths = {
-            A: require('./Assets/A.jpg'),
-            B: require('./Assets/B.jpg'),
-            C: require('./Assets/C.jpg'),
-            D: require('./Assets/D.jpg'),
-            E: require('./Assets/E.jpg'),
+            Anna: require('./Assets/Anna.jpg'),
+            Elsa: require('./Assets/Elsa.jpg'),
+            Kristoff: require('./Assets/Kristoff.jpg'),
+            Olaf: require('./Assets/Olaf.jpg'),
+            Sven: require('./Assets/Sven.jpg'),
         };
 
         return imagePaths[char];
@@ -116,7 +117,6 @@ const GameScreen = () => {
         </View>
     );
 };
-
 
 
 const { width, height } = Dimensions.get('window');
