@@ -33,12 +33,14 @@ const GameScreen = () => {
 
     const initializeApp = () => {
         setMessage('');
+        setUserAnswer(''); // Reset userAnswer
         const { values, equation, answer } = generateRandomValues();
         setCurrentValues(values);
         setEquation(equation);
         setCurrentAnswer(answer);
         setRemainingTime(10);
     };
+
 
     useEffect(() => {
         if (message) {
@@ -71,6 +73,7 @@ const GameScreen = () => {
         } else {
             setMessage('Please enter a valid numeric answer.');
         }
+        setUserAnswer(''); 
     };
 
 
