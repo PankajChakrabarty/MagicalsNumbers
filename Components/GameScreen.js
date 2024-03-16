@@ -73,7 +73,7 @@ const GameScreen = () => {
         } else {
             setMessage('Please enter a valid numeric answer.');
         }
-        setUserAnswer(''); 
+        setUserAnswer('');
     };
 
 
@@ -148,7 +148,7 @@ const GameScreen = () => {
 const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
-  
+
     container: {
         flex: 1,
         alignItems: 'center',

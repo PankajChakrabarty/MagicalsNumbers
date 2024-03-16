@@ -10,7 +10,7 @@ const Start = () => {
       const navigation = useNavigation();
 
   const handleButtonPress = () => {
-    navigation.navigate('Level 1');
+    navigation.navigate('Game');
   };
   const navigateToLogin = () => {
     navigation.navigate('Register');

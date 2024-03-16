@@ -18,6 +18,8 @@ app.listen(port, () => {
   console.log('Server is running on port 8000');
 });
 
+
+
 mongoose
   .connect(
     'mongodb+srv://pankajchakrabarty:%40gniBHOOMI22@cluster0.qd68qfd.mongodb.net/',
@@ -142,7 +144,7 @@ app.post("/login", async (req, res) => {
         //check if the user exists
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(401).json({ message: "Invalid email or password" });
+            return res.status(401).json({ message: "Invalid Username or password" });
         }
 
         //check if the password is correct
