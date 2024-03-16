@@ -1,7 +1,7 @@
 // utils.js
 
 export const generateRandomValues = () => {
-    const charSet = ['Anna', 'Elsa', 'Kristoff', 'Olaf', 'Sven'];
+    const charSet = ['Anna', 'Elsa', 'Kristoff', 'Olaf'];
     const values = {};
 
     // Shuffle the charSet array
@@ -16,9 +16,9 @@ export const generateRandomValues = () => {
     });
 
     // Shuffle the operators array
-    const shuffledOperators = shuffleArray(['+', '-', '*', '/']);
+    const shuffledOperators = shuffleArray(['+', '-', '*']);
 
-    const equation = `${shuffledCharSet[0]} ${shuffledOperators[0]} ${shuffledCharSet[1]} ${shuffledOperators[1]} ${shuffledCharSet[2]} ${shuffledOperators[2]} ${shuffledCharSet[3]} ${shuffledOperators[3]} ${shuffledCharSet[4]}`;
+    const equation = `${shuffledCharSet[0]} ${shuffledOperators[0]} ${shuffledCharSet[1]} ${shuffledOperators[1]} ${shuffledCharSet[2]} ${shuffledOperators[2]} ${shuffledCharSet[3]}`;
     const answer = calculateAnswer(values, equation);
 
     return { values, equation, answer };

@@ -63,9 +63,11 @@ const LoginScreen = () => {
         >
             <View style={{ flex: 1, backgroundColor: "white", alignItems: "center", marginTop: 100 }}>
                 <Image
-                    style={{ width: 200, height: 60 }}
+                    style={{
+                        width: Dimensions.get('window').width * 0.70,
+                        height: Dimensions.get('window').height * 0.1, }}
                     source={require
-                        ('../Assets/unnamed.png')
+                        ('../Assets/Logo.png')
                     }
                 />
             </View>

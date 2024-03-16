@@ -60,7 +60,7 @@ const RegisterScreen = () => {
                     <Image
                         style={{ width: 200, height: 60 }}
                         source={require
-                            ('../Assets/unnamed.png')
+                            ('../Assets/Logo.png')
                         }
                     />
             </View>

@@ -1,7 +1,7 @@
 // GameScreen.js
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TextInput, Button, Dimensions, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TextInput, Button, Dimensions, StyleSheet, Alert, TouchableOpacity,ScrollView } from 'react-native';
 import { generateRandomValues } from './utils';
 
 const GameScreen = () => {
@@ -81,17 +81,18 @@ const GameScreen = () => {
 
     const getImageSource = char => {
         const imagePaths = {
-            Anna: require('./Assets/Anna.jpg'),
-            Elsa: require('./Assets/Elsa.jpg'),
-            Kristoff: require('./Assets/Kristoff.jpg'),
-            Olaf: require('./Assets/Olaf.jpg'),
-            Sven: require('./Assets/Sven.jpg'),
+            Anna: require('./Assets/chrc1.png'),
+            Elsa: require('./Assets/chrc2.png'),
+            Kristoff: require('./Assets/chrc3.png'),
+            Olaf: require('./Assets/chrc4.png'),
+           
         };
 
         return imagePaths[char];
     };
 
     return (
+        <ScrollView>
         <View style={styles.container}>
             <Text style={styles.remainingTime}>{`Remaining Time: ${remainingTime}s`}</Text>
 
@@ -118,7 +119,7 @@ const GameScreen = () => {
                 ))}
             </View>
 
-            <Text style={styles.answerText}>{`Answer: ${currentAnswer}`}</Text>
+          {/* <Text style={styles.answerText}>{`Answer: ${currentAnswer}`}</Text>*/}
 
             <TextInput
                 style={styles.input}
@@ -142,6 +143,7 @@ const GameScreen = () => {
                 </TouchableOpacity>
             )}
         </View>
+        </ScrollView>
     );
 };
 
@@ -155,12 +157,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     imagesContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        marginBottom: 20,
+        paddingTop:10,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
     },
     imageItem: {
-        marginHorizontal: 10,
+        marginHorizontal: 20,
         alignItems: 'center',
     },
     image: {
@@ -184,11 +186,11 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height * 0.07,
     },
     equationTextPart: {
-        fontSize: 18,
+        fontSize: 15,
     },
     equationText: {
-        fontSize: 20,
-        marginBottom: 10,
+        fontSize: 15,
+        marginTop: 10,
     },
     answerText: {
         fontSize: 18,
