@@ -163,7 +163,22 @@ const LoginScreen = () => {
             justifyContent: "space-between",
           }}
         >
-          <Text>Keep me logged in</Text>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "white",
+              alignItems: "center",
+              marginTop: 100,
+            }}
+          >
+            <Image
+              style={{
+                width: Dimensions.get("window").width * 0.7,
+                height: Dimensions.get("window").height * 0.1,
+              }}
+              source={require("../Assets/Logo.png")}
+            />
+          </View>
 
           <Text style={{ color: "#007FFF", fontWeight: "500" }}>
             Forgot Password
