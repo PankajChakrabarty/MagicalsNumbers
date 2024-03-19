@@ -44,7 +44,7 @@ const LoginScreen = () => {
     };
 
     axios
-      .post("http://192.168.1.90:8000/login", user)
+      .post("http://87.100.252.131:8000/login", user)
       .then((response) => {
         console.log(response);
         const token = response.data.token;
@@ -163,22 +163,7 @@ const LoginScreen = () => {
             justifyContent: "space-between",
           }}
         >
-          <View
-            style={{
-              flex: 1,
-              backgroundColor: "white",
-              alignItems: "center",
-              marginTop: 100,
-            }}
-          >
-            <Image
-              style={{
-                width: Dimensions.get("window").width * 0.7,
-                height: Dimensions.get("window").height * 0.1,
-              }}
-              source={require("../Assets/Logo.png")}
-            />
-          </View>
+          <Text>Keep me logged in</Text>
 
           <Text style={{ color: "#007FFF", fontWeight: "500" }}>
             Forgot Password
