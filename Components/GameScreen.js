@@ -3,8 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TextInput, Button, Dimensions, StyleSheet, Alert, TouchableOpacity,ScrollView } from 'react-native';
 import { generateRandomValues } from './utils';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import NextLevelScreen from './NextLevelScreen';
 
 const GameScreen = () => {
+    const navigation = useNavigation();
+    const route = useRoute();
     const [currentValues, setCurrentValues] = useState({});
     const [equation, setEquation] = useState('');
     const [userAnswer, setUserAnswer] = useState('');
@@ -13,6 +17,7 @@ const GameScreen = () => {
     const [currentAnswer, setCurrentAnswer] = useState(null);
     const [remainingTime, setRemainingTime] = useState(10); // Initial time in seconds
     const [message, setMessage] = useState('');
+    const [incorrectAttempts, setIncorrectAttempts] = useState([]);
 
     useEffect(() => {
         initializeApp();
@@ -38,7 +43,7 @@ const GameScreen = () => {
         setCurrentValues(values);
         setEquation(equation);
         setCurrentAnswer(answer);
-        setRemainingTime(10);
+        setRemainingTime(20);
     };
 
 
@@ -48,6 +53,10 @@ const GameScreen = () => {
         }
     }, [message]);
 
+    useEffect(() => {
+        console.log('Incorrect Attempts:', incorrectAttempts);
+    }, [incorrectAttempts]);
+
     const handleUserInput = () => {
         const userNumericAnswer = parseFloat(userAnswer);
 
@@ -55,9 +64,8 @@ const GameScreen = () => {
             if (userNumericAnswer === currentAnswer) {
                 const updatedCorrectAnswers = correctAnswers + 1;
 
-                if (updatedCorrectAnswers === 5) {
-                    setShowNextLevelButton(true);
-                    setMessage("Congratulations! You've completed 5 levels. Enable the next level button.");
+                if (updatedCorrectAnswers === 1) {
+                    navigation.navigate(' ', {incorrectAttempts}); // Navigate to the next level page
                 } else {
                     setMessage('Correct answer! Go for next.');
                     setTimeout(() => {
@@ -68,16 +76,23 @@ const GameScreen = () => {
 
                 setCorrectAnswers(updatedCorrectAnswers);
             } else {
+                // Update the equation and reset the game for incorrect answer
                 setMessage('Incorrect answer. Try again!');
+                const { values, equation, answer } = generateRandomValues();
+                setIncorrectAttempts(prevAttempts => [
+                    ...prevAttempts,
+                    {values, equation, answer: currentAnswer }
+                ]);
+                setTimeout(() => {
+                    setMessage('');
+                    initializeApp(); // Reset the game
+                }, 1000); // Change the timeout as needed
             }
         } else {
             setMessage('Please enter a valid numeric answer.');
         }
         setUserAnswer('');
     };
-
-
-
 
     const getImageSource = char => {
         const imagePaths = {
@@ -97,12 +112,18 @@ const GameScreen = () => {
             <Text style={styles.remainingTime}>{`Remaining Time: ${remainingTime}s`}</Text>
 
             <View style={styles.imagesContainer}>
+                  
                 {Object.keys(currentValues).map(char => (
+                   
                     <View key={char} style={styles.imageItem}>
+                        <View style={styles.equationItem}>
                         <Image source={getImageSource(char)} style={styles.image} />
-                        <Text style={styles.imageText}>{`${char}: ${currentValues[char].value}`}</Text>
+                       
+                        <Text style={styles.imageText}>{`=${currentValues[char].value}`}</Text>
+                        </View>
                     </View>
                 ))}
+               
             </View>
 
             <Text style={styles.equationText}>{`Find The Value For: `}</Text>
@@ -119,7 +140,7 @@ const GameScreen = () => {
                 ))}
             </View>
 
-          {/* <Text style={styles.answerText}>{`Answer: ${currentAnswer}`}</Text>*/}
+          <Text style={styles.answerText}>{`Answer: ${currentAnswer}`}</Text>
 
             <TextInput
                 style={styles.input}
@@ -154,20 +175,26 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
+      
     },
     imagesContainer: {
         paddingTop:10,
         flexDirection: 'column',
         justifyContent: 'space-between',
+        flexWrap: 'wrap'
     },
     imageItem: {
+        margin: 10, 
         marginHorizontal: 20,
         alignItems: 'center',
+        flexWrap: 'wrap'
     },
     image: {
+        justifyContent: 'space-evenly',
         width: Dimensions.get('window').width * 0.15,
         height: Dimensions.get('window').height * 0.1,
+        flexWrap: 'wrap'
     },
     imageText: {
         marginTop: 5,
@@ -179,7 +206,9 @@ const styles = StyleSheet.create({
     },
     equationItem: {
         flexDirection: 'row',
-        alignItems: 'center',
+        alignItems: 'flex-start',
+        justifyContent: 'space-evenly',
+        flexWrap: 'wrap'
     },
     equationImage: {
         width: Dimensions.get('window').width * 0.1,
