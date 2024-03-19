@@ -1,42 +1,40 @@
-// Start.js
-import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Button, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import React from "react";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  SafeAreaView,
+  StatusBar,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const Start = () => {
-
-      const navigation = useNavigation();
+  const navigation = useNavigation();
 
   const handleButtonPress = () => {
-    navigation.navigate('Game');
-  };
-  const navigateToLogin = () => {
-    navigation.navigate('Register');
-  };
-  const handleLogout = async () => {
-    try {
-      // Remove the authentication token from AsyncStorage
-      await AsyncStorage.removeItem("authToken");
-      // Navigate to the login screen
-      navigation.replace("Login");
-    } catch (err) {
-      console.log("Error logging out:", err);
-    }
+    navigation.navigate("Game");
   };
 
   return (
     <View style={styles.container}>
-
-    <Text style= {styles.normalText}> Press the Button Below to Start Play</Text>
-    <TouchableOpacity onPress={handleButtonPress} style={styles.button}>
-        <Text style={styles.buttonText}>PLAY</Text>
-      </TouchableOpacity>
-      {/* Add any additional content for your Level2 page */}
-      <TouchableOpacity onPress={handleLogout} style={styles.button}>
-        <Text style={styles.buttonText}>Logout</Text>
-      </TouchableOpacity>
+      <StatusBar translucent backgroundColor="transparent" />
+      <ImageBackground
+        source={require("./Assets/Background.png")}
+        style={styles.background}
+      >
+        <SafeAreaView style={styles.safeAreaView}>
+          <View style={styles.innerContainer}>
+            <Text style={styles.normalText}>
+              Press the Button Below to Start Play
+            </Text>
+            <TouchableOpacity onPress={handleButtonPress} style={styles.button}>
+              <Text style={styles.buttonText}>PLAY</Text>
+            </TouchableOpacity>
+          </View>
+        </SafeAreaView>
+      </ImageBackground>
     </View>
   );
 };
@@ -44,21 +42,35 @@ const Start = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
   },
-  text: {
-    fontSize: 18,
-    fontWeight: 'bold',
+  background: {
+    flex: 1,
+    resizeMode: "cover",
   },
-    button: {
-    flexDirection:'row',
-    padding: 10,
-    backgroundColor: 'blue',
-    borderRadius: 5,
+  safeAreaView: {
+    flex: 1,
+  },
+  innerContainer: {
+    flex: 1,
+    marginTop: 120,
+    alignItems: "center",
+  },
+  normalText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "black",
+    marginBottom: 50,
+  },
+  button: {
+    paddingVertical: 20,
+    paddingHorizontal: 100,
+    backgroundColor: "#9AD0D3",
+    borderRadius: 60,
   },
   buttonText: {
-    color: 'white',
+    color: "black",
+    fontSize: 30,
+    fontWeight: "bold",
   },
 });
 
